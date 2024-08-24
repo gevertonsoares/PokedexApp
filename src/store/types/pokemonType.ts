@@ -6,7 +6,6 @@ export interface Pokemon {
     weight: number;
     abilities: Ability[]; 
     sprites: PokemonSprites;
-    species: NamedAPIResource;
     stats: PokemonStat[];
     types: PokemonType[];
 }
@@ -24,6 +23,11 @@ interface Ability {
 
 interface PokemonSprites {
     front_default: string;
+    other: {
+        ['official-artwork']: {
+            front_default: string;
+        }
+    }
 }
 
 interface PokemonType {
