@@ -1,7 +1,7 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Pagination, Typography } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useAppDispatch, useAppSelector } from "../../store/hook";
-import { fetchGetPokemons, selectPokemons } from "../../store/modules/getPokemonSlice";
+import { fetchGetPokemons, selectPage, selectPokemons, selectTotalPages } from "../../store/modules/getPokemonSlice";
 import { useEffect } from "react";
 
 
@@ -9,12 +9,19 @@ import { useEffect } from "react";
 export default function ContainerCardPokemon() {
     const dispatch = useAppDispatch()
     const pokemons = useAppSelector(selectPokemons) 
+    const page = useAppSelector(selectPage)
+    const totalPages = useAppSelector(selectTotalPages)
+
     
     useEffect(() => {
-        dispatch(fetchGetPokemons(1)) 
-    },[dispatch])
+        dispatch(fetchGetPokemons(page)) 
+    },[dispatch, page])
 
     // console.log(pokemons);
+
+    const handlePageChange = (event, value) => {
+        dispatch(fetchGetPokemons(value));
+    };
    
     
     
@@ -24,18 +31,23 @@ export default function ContainerCardPokemon() {
                     <Grid gap={2} justifyContent="center" container>
                         { pokemons.map((pokemon) => (
 
-                            <Card key={pokemon.id}  sx={{ minWidth: 250,  backgroundColor:'#0075BE', color:'#ffff'}}> 
-                                <CardActions sx={{justifyContent: 'end'}}>
+                            <Card key={pokemon.id}  sx={{ minWidth: 200,  backgroundColor:'#0075BE', color:'#ffff'}}> 
+                                <CardActions sx={{justifyContent: 'space-between'}}>
+                                    <Typography variant="body2" color="white">
+                                        N°:&nbsp;{pokemon.id}
+                                    </Typography>
                                     <Button size="small" sx={{color: 'white'}}>
                                         <FavoriteBorderIcon />
                                     </Button>
                                 </CardActions>
-                                <CardMedia
-                                    component='img'
-                                    sx={{ height: 200, backgroundColor:'#DFDFDF', borderRadius:'100px' }}
-                                    image={pokemon.sprites != null ? pokemon.sprites.front_default : ''} 
-                                    alt={pokemon.name}
+                                <Box sx={{display: 'flex', justifyContent: 'center',alignItems: 'center',height: 150, width: '100%', backgroundColor: '#DFDFDF',borderRadius: '100px'}}>
+                                    <CardMedia
+                                        component='img'
+                                        sx={{ height: 150, width: 150, backgroundColor:'#DFDFDF', borderRadius:'100px', objectFit: 'cover' }}
+                                        image={pokemon.sprites != null ? pokemon.sprites.front_default : ''} 
+                                        alt={pokemon.name}
                                     />
+                                </Box>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
                                         {pokemon.name}
@@ -50,6 +62,14 @@ export default function ContainerCardPokemon() {
                             </Card>               
                         ))}
                     </Grid>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+                    <Pagination
+                        count={totalPages}
+                        page={page}
+                        onChange={handlePageChange}
+                        color="primary"
+                    />
                 </Box>
         </Container>
     )

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPokemons } from "../../config/services/getPokemons.service";
 import { GlobalState } from "..";
 import { Pokemon } from "../types/pokemonType";
@@ -43,8 +43,8 @@ const listAllPokemonsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(
             fetchGetPokemons.fulfilled,
-            (state, action: PayloadAction<{ pokemons: Pokemon[], page: number, totalPages: number }>) => {
-                state.pokemons = action.payload.pokemons;
+            (state, action) => {
+                state.pokemons = action.payload.pokemonList;
                 state.page = action.payload.page;
                 state.pages = action.payload.totalPages;
             }
