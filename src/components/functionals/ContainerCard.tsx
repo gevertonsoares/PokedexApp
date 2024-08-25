@@ -23,6 +23,7 @@ export default function ContainerCardPokemon() {
     },[dispatch, page])
 
     const handlePageChange = (event: ChangeEvent<unknown>,value: number) => {
+        console.log(event);
         dispatch(fetchGetPokemons(value));
     };
 
@@ -42,6 +43,7 @@ export default function ContainerCardPokemon() {
    
     return (
         <Container fixed component='section' sx={{marginTop: '2rem'}}> 
+            
                 <Box sx={{ width: '100%' }}>
                     <Grid gap={2} justifyContent="center" container>
                         { pokemons.map((pokemon) => (
@@ -101,6 +103,7 @@ export default function ContainerCardPokemon() {
                         count={totalPages}
                         page={page}
                         onChange={handlePageChange}
+
                         color="primary"
                         variant="outlined"
                         shape="rounded"

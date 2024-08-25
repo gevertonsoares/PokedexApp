@@ -2,14 +2,19 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider
 import { Pokemon } from "../../store/types/pokemonType"
 
 
-
 interface PokemonModalProps {
     open: boolean
     closeModal: () => void
     pokemon: Pokemon | null
 }
 
-const typeColors: any = {
+type PokemonType = 
+    | 'fire' | 'water' | 'grass' | 'electric' | 'ice'
+    | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic'
+    | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark'
+    | 'steel' | 'fairy' | 'normal';
+
+const typeColors:  Record<PokemonType, string> = {
     fire: '#EE8130',
     water: '#6390F0',
     grass: '#7AC74C',
@@ -80,7 +85,7 @@ export function ModalPokemon({open, closeModal, pokemon}: PokemonModalProps) {
                 <Box>
                     {pokemon?.types.map((t, index) => (
                         <Box key={t.type.name}>
-                            <Typography variant="body2" sx={{ textAlign: 'center', background: typeColors[t.type.name] || '#000' }}>
+                            <Typography variant="body2" sx={{ textAlign: 'center', background: typeColors[t.type.name as PokemonType] || '#000' }}>
                                 {t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)}
                             </Typography>
                             {index < pokemon.stats.length - 1 && <Divider />}
