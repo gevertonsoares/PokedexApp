@@ -36,7 +36,7 @@ export default function Pokedex() {
             <Divider sx={{ background: '#0075BE' }} />
             <Box sx={{ width: '100%' }}>
                 {pokedexPokemons.length === 0 ? (
-                    <Typography variant="h6" sx={{ textAlign: 'center', color: '#0075BE'}}>
+                    <Typography variant="h6" sx={{ marginTop: '2rem', textAlign: 'center', color: '#0075BE'}}>
                         Empty
                     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                         <img 
@@ -46,10 +46,8 @@ export default function Pokedex() {
                         />
                     </Box>
                     </Typography>
-                    
-                   
                 ) : (
-                    <Grid gap={2} justifyContent="center" container>
+                    <Grid gap={2} justifyContent="center" container sx={{marginTop: '2rem'}}>
                         {pokedexPokemons.map((pokemon) => (
                             <Card
                                 key={pokemon.id}
