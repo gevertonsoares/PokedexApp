@@ -13,23 +13,26 @@ export default function Navbar() {
       <AppBar sx={{background: 'linear-gradient(to right, #FFCC00 50%, #0A285F )'}} color='transparent' component='header' position="static">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
           <IconButton
+            component={Link}
+            to='/'
             size="large"
             edge="end"
             color= 'error'
             aria-label="menu"
             sx={{ mx: 5 }}
           >
-            <IconHome>
-              <Link to={'/'} style={{textDecoration: 'none'}} />
-            </IconHome>
+            <IconHome />
+            
           </IconButton>
           <CardMedia
             component='img'
             sx={{ width: 150, }}
             image={PokemonNav} 
-            alt=''
+            alt='LogoPokemon'
           />
-          <Button  size='medium'  sx={{ mr: 5, color: 'white' }}> <b>Show Favorites</b> </Button>
+          <Button component={Link} to='/pokedex' size='medium'  sx={{ mr: 5, color: 'white' }}> 
+            <b>Show Favorites</b> 
+          </Button>
         </Toolbar>
       </AppBar>
   );

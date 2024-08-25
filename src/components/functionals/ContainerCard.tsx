@@ -5,6 +5,7 @@ import { fetchGetPokemons, selectPage, selectPokemons, selectTotalPages } from "
 import { ChangeEvent, useEffect, useState } from "react";
 import { Pokemon } from "../../store/types/pokemonType";
 import { ModalPokemon } from "./ModalPokemon";
+import { pokedexAdd } from "../../store/modules/pokedexSlice";
 
 
 
@@ -34,6 +35,10 @@ export default function ContainerCardPokemon() {
         setOpen(false);
         setSelectedPokemon(null);
     }
+
+    const handleAddPokedex = (pokemon: Pokemon) => {
+        dispatch(pokedexAdd(pokemon));
+    };
    
     return (
         <Container fixed component='section' sx={{marginTop: '2rem'}}> 
@@ -57,7 +62,7 @@ export default function ContainerCardPokemon() {
                                     <Typography variant="body2" color="white">
                                         N°:&nbsp;{pokemon.id}
                                     </Typography>
-                                    <Button size="small" sx={{color: 'white'}}>
+                                    <Button size="small" sx={{color: 'white'}} onClick={() => handleAddPokedex(pokemon)}>
                                         <FavoriteBorderIcon />
                                     </Button>
                                 </CardActions>
